@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+ {% block content %}
+    <h2>Популярные товары</h2>
+    <div class="products">
+        {% for product in products %}
+        <div class="item_product">
+            <p>
+                <img src="/media/{{product.image}}">
+            </p>
+            <p>
+                {{product.title}}
+            </p>
+            <p>
+                Цена: {{product.price}} руб.
+            </p>
+            <p>
+                <form action="addcart" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_product" value="{{product.id}}">
+                     <button>В корзину</button>
+                </form>
+
+            </p>
+        </div>
+        {% endfor %}
+
+
+    </div>
+ {% endblock %}

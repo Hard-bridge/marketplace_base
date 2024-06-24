@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+ {% block content %}
+<form action="" method="get" style="text-align: center">
+    <select name="sort">
+         <option value="ask">По возрастанию</option>
+         <option value="desc">По убыванию</option>
+    </select>
+     <select name="sort_value">
+         <option value="title">По названию</option>
+         <option value="price">По цене</option>
+    </select>
+    <button>Применить</button>
+</form>
+    <h2>Каталог</h2>
+    <div class="products">
+        {% for product in products %}
+        <div class="item_product">
+            <p>
+                <img src="/media/{{product.image}}">
+            </p>
+            <p>
+                {{product.title}}
+            </p>
+            <p>
+                Цена: {{product.price}} руб.
+            </p>
+            <p>
+                <form action="addcart" method="post">
+                    {% csrf_token %}
+                    <p><input type="number" name="count" min="1" value="1"></p>
+                    <input type="hidden" name="id_product" value="{{product.id}}" >
+                     <p><button>В корзину</button></p>
+                </form>
+
+            </p>
+        </div>
+        {% endfor %}
+
+
+    </div>
+ {% endblock %}

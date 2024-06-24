@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+    <nav class="menu">
+        <ul>
+            <li>
+                <a href="/">
+                    Главная
+                </a>
+            </li>
+             <li>
+                <a href="/catalog">
+                    Каталог
+                </a>
+            </li>
+             <li>
+                <a href="/panel">
+                    Личный кабинет
+                </a>
+            </li>
+             <li>
+                <a href="/cart">
+                    Корзина
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+    <div class="content">
+        {% block content %} {% endblock %}
+    </div>
+    <footer class="footer">
+        <p>Все права защищены</p>
+    </footer>
+</body>
+</html>

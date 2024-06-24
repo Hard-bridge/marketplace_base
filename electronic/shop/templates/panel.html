@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if 'user' in request.session %}
+    <h2>Ваши данные:</h2>
+    <p><b>Login:</b> {{current_user.login}}</p>
+    <p><b>Email:</b> {{current_user.email}}</p>
+    <p><b>Phone:</b> {{current_user.phone}}</p>
+    <p><b>Balance:</b> {{current_user.balance}} руб.</p>
+    <h2>Мои заказы</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Общая сумма</th>
+            <th>Товары</th>
+            <th>Дата</th>
+            <th>Статус</th>
+            <th></th>
+        </tr>
+        {% for order in current_order %}
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.total_price}}</td>
+                <td>
+                    <ol>
+                        {% for pr in order.products.all %}
+                            <li>{{pr.title}}</li>
+                        {% endfor %}
+                    </ol>
+                </td>
+                <td>{{order.date_order}}</td>
+                <td>{{order.status}}</td>
+                <td>
+                    {% if order.status == 'Не оплачен' %}
+                    <form action="payOrder" method="POST">
+                        <input type="hidden" name="id_order" value="{{order.id}}">
+                        {% csrf_token %}
+                         <button>Оплатить</button>
+                    </form>
+
+                    {% else %}
+                    Оплачен
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <ul>
+        <li>
+            <a href="/reg">Регистрация</a>
+        </li>
+        <li>
+            <a href="/auth">Авторизация</a>
+        </li>
+    </ul>
+{% endif %}
+{% endblock %}

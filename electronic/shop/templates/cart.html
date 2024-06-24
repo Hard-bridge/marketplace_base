@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Корзина</h2>
+{% if products %}
+<table border="1" align="center">
+    <tr>
+        <th>Название</th>
+        <th>Фото</th>
+        <th>Цена за 1</th>
+        <th>Кол-во</th>
+        <th>Общая цена</th>
+        <th></th>
+    </tr>
+    {% for product in products %}
+        <tr>
+            <td>{{product.product.title}}</td>
+            <td><img src="/media/{{product.product.image}}" width="100px"></td>
+            <td>{{product.product.price}} руб.</td>
+            <td>
+                <form action="changecount" method="post">
+                    {% csrf_token %}
+                    <p><input type="number" name="count" value="{{product.count}}" id=""></p>
+                    <input type="hidden" name="id_product" value="{{product.id}}">
+                    <p><button type="submit">Изменить</button></p>
+                </form>
+            </td>
+            <td>{{product.total_price}} руб.</td>
+            <td>
+                <form action="cartdel" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id_product" value="{{product.product.id}}">
+                    <button>Удалить</button>
+                </form>
+            </td>
+        </tr>
+    {%  endfor %}
+    <tr>
+        <td colspan="4">
+            Итоговая сумма оплаты
+        </td>
+        <td colspan="2">
+            {{total_price_cart}} руб.
+        </td>
+    </tr>
+</table>
+<p>
+    <form action="addOrder" method="post">
+        {% csrf_token %}
+        <button type="submit" style="display: block; width: 132px; margin: 10px auto">Оформить заказ</button>
+    </form>
+
+</p>
+{% else %}
+<p>Корзина пуста</p>
+{% endif %}
+{% endblock %}

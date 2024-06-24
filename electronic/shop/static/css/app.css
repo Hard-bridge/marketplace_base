@@ -1,0 +1,50 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.menu ul{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.menu ul li{
+    display: block;
+    margin: 5px
+}
+.menu ul li a{
+    background-color: black;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none
+}
+.content{
+    width: 1000px;
+    margin: 10px auto;
+}
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center
+}
+.item_product{
+    width: 300px;
+}
+.item_product img{
+    width: 80%;
+
+}
+.content h2{
+    text-align: center
+}
+.item_product button{
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    text-transform: uppercase;
+    cursor: pointer
+}
+.footer{
+    text-align: center
+}
