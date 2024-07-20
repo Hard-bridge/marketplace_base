@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import Reg, Auth
-from  .models import User, Product, Order
+from  .models import User, Product, Order, Review
 
 def index(request):
     products = Product.objects.all()
@@ -37,9 +37,16 @@ def reg(request):
 
 
 def panel(request):
-    current_user = User.objects.filter(login=request.session['user']).first()
-    current_order = Order.objects.filter(user=current_user)
-    return render(request, 'panel.html', {'current_user': current_user, 'current_order': current_order})
+    m = False
+    if 'user' in request.session:
+        m = True
+        current_user = User.objects.filter(login=request.session['user']).first()
+        current_order = Order.objects.filter(user=current_user)
+        return render(request, 'panel.html', {'current_user': current_user, 'current_order': current_order, 'm':m})
+
+    else:
+        return render(request, 'panel.html', {'m': m})
+
 
 def payOrder(request):
     current_user = User.objects.filter(login=request.session['user']).first()
@@ -178,3 +185,22 @@ def catalog(request):
             products = products.order_by('-' + sort_value)
 
     return render(request, 'catalog.html', {'products': products})
+
+def detail(request, id_product):
+    product = Product.objects.filter(id=id_product).first()
+    return render(request, 'detailt.html', {'product': product})
+
+def addreviews(request):
+    if request.method == 'POST':
+        data = request.POST
+        id_product = data['id_product']
+        review = data['review']
+        current_user = User.objects.filter(login=request.session['user']).first()
+        current_product = Product.objects.filter(id=id_product).first()
+
+        r = Review()
+        r.user_id = current_user
+        r.product_id = current_product
+        r.text = review
+        r.save()
+    return redirect('/panel')

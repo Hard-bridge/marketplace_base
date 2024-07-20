@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if 'user' in request.session %}
+{% if m %}
     <h2>Ваши данные:</h2>
     <p><b>Login:</b> {{current_user.login}}</p>
     <p><b>Email:</b> {{current_user.email}}</p>
@@ -23,7 +23,15 @@
                 <td>
                     <ol>
                         {% for pr in order.products.all %}
-                            <li>{{pr.title}}</li>
+                            <li>{{pr.title}}
+                                <form method="POST" action="/addreviews">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id_product" value="{{pr.id}}">
+                                    <input type="text" name="review" placeholder="Добавить отзыв">
+                                    <button>Отправить</button>
+                                </form>
+                            </li>
+
                         {% endfor %}
                     </ol>
                 </td>

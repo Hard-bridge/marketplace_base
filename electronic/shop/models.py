@@ -23,3 +23,10 @@ class Order(models.Model):
     products = models.ManyToManyField(Product, related_name='product_order')
     date_order = models.DateTimeField(auto_now=True)
     status = models.CharField(default='Не оплачен', max_length=200)
+
+
+class Review(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now=True)

@@ -12,5 +12,7 @@ urlpatterns = [
     path('addOrder', addOrder),
     path('payOrder', payOrder),
     path('catalog', catalog),
-    path('changecount', changecount)
+    path('changecount', changecount),
+    path('detail/<int:id_product>', detail),
+    path('addreviews',addreviews)
 ]

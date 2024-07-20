@@ -6,10 +6,10 @@
 {% if error != '' %}
 <p style="color: red; text-align: center">{{error}}</p>
 {% endif %}
-<h2>Регистрация</h2>
+<h2>Авторизация</h2>
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button>Зарегистрироваться</button>
+    <button>Отпарвить</button>
 </form>
 {% endblock %}

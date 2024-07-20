@@ -48,3 +48,16 @@ body{
 .footer{
     text-align: center
 }
+.detailt_product{
+    display: flex
+}
+.detailt_img{
+    width: 50%;
+}
+.detailt_img img{
+    width: 100%
+}
+.detail_description{
+    width: 50%;
+    padding-left: 10px
+}
