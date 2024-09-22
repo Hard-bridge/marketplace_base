@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+ <div class="detailt_product">
+   <div class="detailt_img">
+    <img src="/media/{{product.image}}">
+   </div>
+  <div class="detail_description">
+    <h2>{{product.title}}</h2>
+      <p>
+          <b>Цена:</b> {{product.price}} руб.
+      </p>
+      <p>
+          {{product.full_text}}
+      </p>
+       <p>
+                <form action="/addcart" method="post">
+                    {% csrf_token %}
+                    <p><input type="number" name="count" min="1" value="1"></p>
+                    <input type="hidden" name="id_product" value="{{product.id}}" >
+                     <p><button>В корзину</button></p>
+                </form>
+
+            </p>
+  </div>
+ </div>
+{% endblock %}
